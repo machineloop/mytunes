@@ -9,22 +9,24 @@ var SongQueue = Songs.extend({
       }
     });
 
-    this.on('ended', function() {
-      self.endAndDequeue();
+    this.on('ended', function(target) {
+      self.endAndDequeue(target);
     });
-    this.on('dequeue', function() {
-      self.endAndDequeue();
+    this.on('dequeue', function(target) {
+      self.endAndDequeue(target);
     });
   },
 
   playFirst: function() {
-    this.models[0].play();
+    this.at(0).play();
   },
 
-  endAndDequeue: function() {
-    this.remove(this.models[0]);
+  endAndDequeue: function(target) {
+    this.remove(target);
     if (this.length > 0) {
       this.playFirst();
+    } else {
+      target.stop();
     }
   }
 });

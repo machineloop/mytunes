@@ -6,6 +6,13 @@ var SongModel = Backbone.Model.extend({
     this.trigger('play', this);
   },
 
+  stop: function(){
+    // Triggering an event here will also trigger the event on the collection
+    var audioPlayer = document.getElementsByTagName('audio')[0];
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+  },
+
   enqueue: function() {
     this.trigger('enqueue', this);
   },
